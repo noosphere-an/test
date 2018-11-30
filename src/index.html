@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+<head>
+
+<body>
+
+  <app-root></app-root>
+
+
+  <div ng-app ng-init="qty=1;cost=2">
+
+    <div>
+      Search Base DN: <input type="number" min="0" ng-model="qty">
+    </div>
+
+    <div>
+
+      <b>DN:</b> {{qty }}
+    </div>
+  </div>
+
+<script>
+    var app = angular.module('myApp', []);
+    app.controller('formCtrl', function($scope) {
+
+    });
+
+
+    gapi.load('client', {
+        callback: function() {
+            // Handle gapi.client initialization.
+            initGapiClient();
+        },
+        onerror: function() {
+            // Handle loading error.
+            alert('gapi.client failed to load!');
+        },
+        timeout: 5000, // 5 seconds.
+        ontimeout: function() {
+            // Handle timeout.
+            alert('gapi.client could not load in a timely manner!');
+        }
+    });
+
+
+
+    var app = angular.module('myApp', []);
+    app.controller('customersCtrl', function($scope, $http) {
+        $http.get("users_mysql.php")
+            .then(function (response) {$scope.names = response.data.records;});
+    });
+</script>
+
+
+
+
+</body>
+</html>
